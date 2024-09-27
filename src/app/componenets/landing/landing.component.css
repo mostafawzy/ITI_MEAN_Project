@@ -1,0 +1,49 @@
+.hero-header {
+    margin-bottom: 30px;
+    margin-top: 0px; /* Adjust the bottom margin as needed */
+}
+
+.hero-header .container {
+    margin-top: 0px; /* Add or adjust the top margin of the inner container */
+}
+
+.nav-pills .nav-link.active {
+    background-color: #007bff; /* Change this to your desired color */
+    color: white; /* Change text color */
+}
+
+.nav-pills .nav-link {
+    transition: background-color 0.3s;
+}
+
+/* .nav-pills .nav-link:hover {
+    background-color: #0056b3; 
+    color: white; 
+}
+
+.border-custom {
+    border: 2px solid #007bff; 
+}
+
+.p-4 {
+    padding: 1.5rem; 
+} */
+
+.button-width {
+    width: 300px; /* Adjust the width as needed */
+}
+
+.hover-button {
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.hover-button:hover {
+    background-color: #b0b7b7; /* Change to your desired hover color */
+    color: #0056b3; /* Optional: Change text color on hover */
+}
+.fixed-height-card {
+    height: 230px; /* Set your desired fixed height */
+    overflow: hidden; /* Hide overflow content */
+    
+}
+

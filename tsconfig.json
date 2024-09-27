@@ -17,11 +17,16 @@
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
+    "target": "esnext",
+    "module": "es6",
     "lib": [
       "ES2022",
       "dom"
+    ],
+    
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types"  // Add this line
     ]
   },
   "angularCompilerOptions": {
