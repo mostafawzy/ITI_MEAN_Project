@@ -52,9 +52,9 @@ export class AdminComponent {
   ngOnInit(): void {
     this.getProducts();
     this.getAllCategory();
+    window.scrollTo(0, 0);
   }
 
-  // Fetch all products
   getProducts() {
     this.productSrv.getProducts().subscribe((res: any) => {
       this.productsList = res;
@@ -62,7 +62,6 @@ export class AdminComponent {
     });
   }
 
-  // Fetch all categories
   getAllCategory() {
     this.productSrv.getCategories().subscribe((res: any) => {
       this.categoryList = res;
@@ -81,7 +80,7 @@ export class AdminComponent {
     }
   }
 
-  // Calculate total pages for pagination
+
   get totalPages(): number {
     if (this.productSrv.flag) {
       return Math.ceil(this.filteredProductsList.length / this.itemsPerPage);
@@ -89,7 +88,7 @@ export class AdminComponent {
     return Math.ceil(this.productsList.length / this.itemsPerPage);
   }
 
-  // Get current page products
+ 
   getCurrentProducts() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     if (this.productSrv.flag) {
@@ -98,45 +97,43 @@ export class AdminComponent {
     return this.productsList.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // Navigate to next page
+  
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }
   }
 
-  // Navigate to previous page
+  
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
   }
 
-  // Method to generate a random ID
   generateRandomId(): number {
-    return Math.floor(Math.random() * 10000) + 1; // Adjust range as needed
+    return Math.floor(Math.random() * 10000) + 1; 
   }
 
   onSave() {
-    // Log the productObj to see if category is set correctly
     console.log('Saving product:', this.productObj);
     
     if (this.productFrm.valid) {
-      this.isApiCallInProgress = true; // Set loading state to true
+      this.isApiCallInProgress = true; 
       
-      // Assign a random ID to the product
+  
       this.productObj.id = this.generateRandomId();
       
       this.productSrv.saveProduct(this.productObj).subscribe(
         (res) => {
           console.log('Product saved successfully:', res);
-          this.getProducts(); // Refresh the products list after saving
+          this.getProducts(); 
           this.onReset(); 
-          this.isApiCallInProgress = false; // Set loading state to false
+          this.isApiCallInProgress = false; 
         },
         (err) => {
           console.error('Error saving product:', err);
-          this.isApiCallInProgress = false; // Set loading state to false on error
+          this.isApiCallInProgress = false; 
         }
       );
     } else {
@@ -158,7 +155,7 @@ export class AdminComponent {
         },
         (err) => {
           console.error('Error updating product:', err);
-          alert('Failed to update product. Please try again.'); // User-friendly error message
+          alert('Failed to update product. Please try again.'); 
           this.isApiCallInProgress = false;
         }
       );
@@ -177,10 +174,10 @@ export class AdminComponent {
       this.productSrv.deleteProduct(productId).subscribe(
         (res) => {
           console.log('Product deleted successfully:', res);
-          this.getProducts(); // Refresh the product list after deletion
+          this.getProducts(); 
         },
         (err) => {
-          console.error('Error deleting product:', err); // Check if there's a more detailed error message
+          console.error('Error deleting product:', err); 
         }
       );
     } else {
@@ -222,6 +219,6 @@ export class productObject {
     this.description = '';
     this.category = '';
     this.thumbnail = '';
-    this.rating = { rate: 0, count: 0 }; // Initialize rating
+    this.rating = { rate: 0, count: 0 }; 
   }
 }

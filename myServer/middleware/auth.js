@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+
 const isAuthenticated = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) {
@@ -7,9 +8,9 @@ const isAuthenticated = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, '1234567');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log('Token verified:', decoded);
-        req.user = decoded;
+        req.user = decoded; 
         next();
     } catch (error) {
         console.error('JWT verification failed:', error);
@@ -17,13 +18,9 @@ const isAuthenticated = (req, res, next) => {
     }
 };
 
-// Middleware to check if the user is an admin
+
 const isAdmin = (req, res, next) => {
-    // Check if the user is authenticated
-    if (!req.user || req.user.role !== 'admin') {
-        return res.status(403).json({ message: 'Forbidden: Admins only' });
-    }
-    next();
+
 };
 
 module.exports = { isAuthenticated, isAdmin };

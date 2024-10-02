@@ -5,7 +5,7 @@ const productRoutes = require("./routes/product");
 const categoryRoutes = require("./routes/category");
 const cartRoutes = require("./routes/cart");
 const userRoutes = require("./routes/user");
-
+require('dotenv').config();
 
 const server = express();
 server.use(cors());

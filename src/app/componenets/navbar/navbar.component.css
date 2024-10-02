@@ -26,6 +26,10 @@
     
   }
 
+  .navbar-collapse {
+    background-color:  #f8f9fa; /* Background color for the toggler list */
+}
+
   .custom-navbar {
     background-color: #f8f9fa; /* Replace with your desired background color */
     width: 100%;
@@ -33,7 +37,16 @@
 
 .custom-navbar2 .nav-item.nav-link {
     padding: 1rem; /* Adjust padding for nav items if necessary */
+    color: #81c408; /* Text color */
+    /* Makes the text bold */
+    font-size: 1.7rem; /* Adjust the size to something reasonable */
+    text-decoration: none; /* Remove underline */
 }
+
+.custom-navbar2 .nav-item {
+    margin-right: 1px; /* Add spacing between links */
+}
+
 
 /* Optionally adjust the search input and icons */
 .input-group .form-control {
@@ -42,4 +55,21 @@
 
 body {
     padding-top: 80px; /* Adjust this value based on the height of your navbar */
+}
+
+@media (max-width: 768px) {
+    .custom-navbar2 .nav-item.nav-link {
+        font-size: 1rem; /* Smaller font size for mobile */
+    }
+    .input-group .form-control {
+        width: 100%; /* Full width on mobile */
+    }
+}
+.custom-navbar2.expanded {
+    background-color: white; /* Set the desired background color */
+}
+
+/* Optional: Adjust the toggle button */
+.navbar-toggler {
+    border-color: transparent; /* Make the toggle button border invisible */
 }

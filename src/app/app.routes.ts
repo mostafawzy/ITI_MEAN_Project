@@ -8,7 +8,6 @@ import { ResultComponent } from './componenets/result/result.component';
 import { DetailsComponent } from './componenets/details/details.component';
 import { ContactComponent } from './componenets/contact/contact.component';
 import { AdminComponent } from './componenets/admin/admin.component';
-import { LogoutComponent } from './componenets/logout/logout.component';
 import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
@@ -27,18 +26,25 @@ export const routes: Routes = [
     component: ProductsComponent,
     title: 'Products'
   },
+  
   {
-    path: 'categories',
+    path: 'products',
     component: ProductsComponent,
-    title: 'Categories'
+    title: 'Products'
   },
+  {
+    path: 'products/:categorySlug',
+    component: ProductsComponent,
+    title: 'Products'
+  },
+  
   { path: 'details/:id', component: DetailsComponent, title: 'Details' },
 
   {
     path: 'admin',
     component: AdminComponent,
     title: 'Admin',
-   canActivate: [AdminGuard] 
+    canActivate: [AdminGuard] 
   },
   {
     path: 'cart',
@@ -55,11 +61,7 @@ export const routes: Routes = [
     component: ContactComponent,
     title: 'contact'
   },
-  {
-    path: 'logout',
-    component: LogoutComponent,
-    title: 'logout'
-  },
+  
   
   
 ];

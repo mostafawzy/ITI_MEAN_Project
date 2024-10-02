@@ -8,8 +8,8 @@ const productSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   discountPercentage: { type: Number },
   rating: {
-    rate: { type: Number, default: 0 }, // Rate should be a Number
-    count: { type: Number, default: 0 } // Count should be a Number
+    rate: { type: Number, default: 0 }, 
+    count: { type: Number, default: 0 }
   },
   stock: { type: Number },
   tags: { type: [String] },

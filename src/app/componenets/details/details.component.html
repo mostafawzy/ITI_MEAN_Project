@@ -27,10 +27,10 @@
                             <div class="input-group-btn">
                                 <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                     <i class="fa fa-plus"></i>
-                                </button>
+                                </button> 
                             </div>
                         </div>
-                        <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                        <a (click)="addToCart(itemDetails)" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                         </a>
                     </div>
@@ -38,7 +38,7 @@
                 <hr style="border-top: 1px solid #ccc;"/> <!-- Thin line -->
 
                 <div class="col-lg-12">
-                    <div class="mb-5" style="margin-top: 20px;"> <!-- Added margin-top -->
+                    <div class="mb-5" style="margin-top: 20px;">
                         <h5>Description</h5>
                         <p>{{ itemDetails.description }}</p>
                     </div>
@@ -66,6 +66,24 @@
                     </div>
                 </div>
             </div>
+
+            <!-- New section for displaying filtered products -->
+            <div class="col-lg-12">
+                <h5>Other Products</h5>
+                <div class="row">
+                    <div class="col-lg-4" *ngFor="let product of filteredProductsList">
+                        <div class="card">
+                            <img [src]="product.thumbnail" class="card-img-top" alt="{{ product.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.title }}</h5>
+                                <p class="card-text">Price: {{ product.price }}</p>
+                                <a (click)="addToCart(product)" class="btn btn-primary">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

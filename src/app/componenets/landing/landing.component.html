@@ -1,33 +1,33 @@
        <!-- Hero Start -->
-<div class="container-fluid py-5 mb-3 hero-header"> <!-- Change mb-5 to mb-3 or any value you prefer -->
+<div class="container-fluid py-5 mb-3 hero-header"> 
     <div class="container py-5">
         <div class="row g-5 align-items-center">
             <div class="col-md-12 col-lg-7">
-                <h4 class="mb-3 text-secondary">Get the best of Shopping and Entertainment</h4>
+                <h4 class="mb-3 text-secondary " style="color: #e19705 !important;">Get the best of Shopping and Entertainment</h4>
                 <h1 class="mb-5 display-3 text-primary">Enjoy low prices and great deals </h1>
-                <div class="position-relative mx-auto">
-                    <!-- You can add content here if needed -->
-                </div>
+                
             </div>
             <div class="col-md-12 col-lg-5">
-                <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+                <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="2000"> <!-- 3000 milliseconds = 3 seconds -->
                     <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active rounded">
-                            <img src="img/hero-img-10.png" class="img-fluid w-100 h-100 p-1 rounded" alt="First slide">
-                            <!-- <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a> -->
+                        <div class="carousel-item" [class.active]="isFirst" *ngFor="let category of categoryList; let isFirst = first">
+                            <img [src]="category.image" alt="{{ category.name }}" class="img-fluid w-100 h-100 bg-secondary rounded">
+                            <a (click)="productsByCategory(category.slug)" style="cursor: pointer; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);">{{ category.name }}</a>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
+            
+            
+            
         </div>
     </div>
 </div>
@@ -89,44 +89,17 @@
         <!-- Featurs Section End -->
 
    <!-- Featurs Start -->
-   <div class="container-fluid service py-5">
+<!-- Featurs Start -->
+<div class="container-fluid service py-5">
     <div class="container py-5">
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-4" >
-                <a routerLink="/products"> 
-                    <div class="service-item rounded border border-secondary"style="background-color: #f8f8e1;">
-                        <img src="https://cdn.dummyjson.com/products/images/groceries/Kiwi/1.png" class="img-fluid rounded-top w-100" alt="">
-                        <div class="px-4 rounded-bottom">
-                            <div class="service-content  text-center p-4 rounded" style="background-color: #bbe56e;">
-                                <h5 class="text-white">Free delivery</h5>
-                                <h3 class="mb-0">Fresh Food</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <a routerLink="/products">
-                    <div class="service-item rounded border border-secondary"style="background-color: #f0f0d9;">
-                        <img src="https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/3.png" class="img-fluid rounded-top w-100" alt="">
-                        <div class="px-4 rounded-bottom">
-                            <div class="service-content bg-light text-center p-4 rounded">
-                                <h5 class="text-primary">Free delivery</h5>
-                                <h3 class="mb-0"> Modern Furniture</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <a routerLink="/products">
-                    <div class="service-item rounded border border-secondary"style="background-color: #f8f8e1;">
-                        <img src="https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png" class="img-fluid rounded-top w-100" alt="">
-                        <div class="px-4 rounded-bottom">
-                            <div class="service-content text-center p-4 rounded" style="background-color: #f6ce54;">
-                                <h5 class="text-white">Free delivery</h5>
-                                <h3 class="mb-0"> Organic Cosmetics </h3>
-                            </div>
+        <div class="row g-4 justify-content-center four-in-line">
+            <div class="col-md-6 col-lg-3" *ngFor="let category of categoryList">
+                <a (click)="productsByCategory(category.slug)" style="cursor: pointer;">
+                    <div class="service-item rounded border border-secondary d-flex flex-column same-height-card" style="background-color: #f8f8e1;">
+                        <img [src]="category.image" alt="{{ category.name }}" class="img-fluid w-100 rounded">
+                        <div class="service-content text-center rounded p-4">
+                            <h5 class="text-white">{{ category.name }}</h5>
+                            <h3 class="mb-0">{{ category.description }}</h3>
                         </div>
                     </div>
                 </a>
@@ -135,7 +108,10 @@
     </div>
 </div>
 <!-- Featurs End -->
-        <!-- Fruits Shop Start-->
+
+
+<!-- Featurs End -->
+        <!--  Shop Start-->
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
                 <div class="tab-class text-center">
@@ -170,7 +146,7 @@
                         <div id="tab-1" class="tab-pane fade show p-3 active">
                             <div class="row g-4">
                                 <div *ngFor="let product of filteredProductsList" class="col-lg-6 col-xl-4">
-                                    <div class="p-4 rounded bg-light border border-secondary fixed-height-card"> <!-- Added fixed-height-card class here -->
+                                    <div class="p-4 rounded bg-light border border-secondary fixed-height-card"> 
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <img [src]="product.thumbnail" class="img-fluid rounded-circle w-100" [alt]="product.name">
@@ -185,7 +161,7 @@
                                                     Details
                                                 </button>
                                                 
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                <a (click)="addToCart(product)" class="btn border border-secondary rounded-pill px-3 text-primary">
                                                     <i class="fa fa-shopping-bag me-2 text-primary "></i>
                                                 </a>
                                                 
@@ -201,21 +177,16 @@
                 </div>
             </div>
         </div>
-        
-        
-        <!-- Fruits Shop End-->
-
-
-     
+        <!--  Shop End-->
 
         <!-- Banner Section Start-->
-        <div class="container-fluid banner  my-1" style="background-color: #f0f0d9;"> <!-- Reduced my-5 to my-3 -->
-            <div class="container py-2"> <!-- Reduced py-5 to py-4 -->
+        <div class="container-fluid banner  my-1" style="background-color: #f0f0d9;"> 
+            <div class="container py-2"> 
                 <div class="row g-4 align-items-center">
                     <div class="col-lg-6">
-                        <div class="py-3"> <!-- Reduced py-4 to py-3 -->
-                            <h1 class="display-4 text-grey" >Chanel Coco Noir Eau De</h1> <!-- Changed display-3 to display-4 -->
-                            <p class="fw-normal display-5 text-dark mb-3">Experience the Essence of Luxury</p> <!-- Changed display-3 to display-5 -->
+                        <div class="py-3"> 
+                            <h1 class="display-4 text-grey" >Chanel Coco Noir Eau De</h1> 
+                            <p class="fw-normal display-5 text-dark mb-3">Experience the Essence of Luxury</p>
                             <p class="mb-3 text-dark">Indulge in the captivating fragrance that embodies elegance and sophistication. Perfect for any occasion, Chanel Coco Noir is your go-to choice for an unforgettable scent.</p> <!-- Reduced mb-4 to mb-3 -->
                             <a [routerLink]="['/details', 4]" class="banner-btn btn border-2 border-white rounded-pill text-dark py-2 px-4 hover-button">
                                 Details
@@ -227,9 +198,9 @@
                         <div class="position-relative">
                             <img src="https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/3.png" class="img-fluid w-100 rounded" alt="Chanel Coco Noir Eau De">
                             <div class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute" style="width: 140px; height: 140px; top: 20px; left: 20px;"> <!-- Added top and left margins -->
-                                <h1 style="font-size: 80px;">1</h1> <!-- Reduced font size from 100px to 80px -->
+                                <h1 style="font-size: 80px;">1</h1> 
                                 <div class="d-flex flex-column">
-                                    <span class="h3 mb-0">50$</span> <!-- Changed h2 to h3 -->
+                                    <span class="h3 mb-0">50$</span> 
                                     <span class="h4 text-muted mb-0">per bottle</span>
                                 </div>
                             </div>

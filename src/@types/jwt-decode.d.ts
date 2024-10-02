@@ -1,4 +1,4 @@
 declare module 'jwt-decode' {
   function jwt_decode(token: string): any;
-  export default jwt_decode; // Use default export
+  export default jwt_decode;
 }

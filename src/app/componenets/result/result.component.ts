@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { CartService } from '../../services/cart/cart.service';
+import { of } from 'rxjs'; 
+interface Product {
+  id: string;
+  price: number;
+  quantity: number;
+  category: string;
+}
+
 
 @Component({
   selector: 'app-result',
@@ -11,24 +21,22 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./result.component.css'],
 })
 export class ResultComponent implements OnInit {
-  products: any[] = []; // Store all products
-  filteredProducts: any[] = []; // Store filtered products
+  products: any[] = []; 
+  filteredProducts: any[] = []; 
 
-  constructor(private productServ: ProductService, private route: ActivatedRoute,private router: Router) {}
+  constructor(private productServ: ProductService, private route: ActivatedRoute, private cartService: CartService, private router: Router,private http: HttpClient) {}
 
   ngOnInit() {
-    // Fetch all products when the component initializes
     this.productServ.getProducts().subscribe(data => {
-      this.products = data; // Store fetched products
-      console.log('Fetched Products:', this.products); // Log fetched products
+      this.products = data; 
+      console.log('Fetched Products:', this.products); 
   
-      // Subscribe to the query parameters to get the search term
       this.route.queryParams.subscribe(params => {
         const searchTerm = params['term'];
         if (searchTerm) {
-          this.filterProductsByName(searchTerm); // Filter products based on the search term
+          this.filterProductsByName(searchTerm); 
         } else {
-          this.filteredProducts = []; // If no search term, clear filtered products
+          this.filteredProducts = []; 
         }
       });
     });
@@ -37,16 +45,35 @@ export class ResultComponent implements OnInit {
   
 
   filterProductsByName(searchTerm: string) {
-    console.log('Filtering products with term:', searchTerm); // Log the search term
+    console.log('Filtering products with term:', searchTerm); 
     this.filteredProducts = this.products.filter(product => {
       const matches = product.title.toLowerCase().includes(searchTerm.toLowerCase());
-      console.log(`Product: ${product.title}, Matches: ${matches}`); // Log matches for each product
+      console.log(`Product: ${product.title}, Matches: ${matches}`); 
       return matches;
     });
   }
   
-    // Navigate to product details
     viewProductDetails(productId: number) {
       this.router.navigate(['/details', productId]);
+    }
+
+    addToCart(product: Product) {
+      const token = localStorage.getItem('token'); 
+    
+      if (!token) {
+        alert('Please sign in to add items to your cart.'); 
+        return of(null); 
+      }
+    
+      const quantity = product.quantity || 1;
+    
+      return this.cartService.addToCart(product.id, quantity).subscribe( 
+        response => {
+          console.log("Product added to cart:", response);
+        },
+        error => {
+          console.error("Error adding product to cart:", error);
+        }
+      );
     }
 }

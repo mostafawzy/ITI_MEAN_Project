@@ -5,8 +5,6 @@ const server = express();
 
 server.use(express.json()); 
 
-
-// Products CRUD
 router.get("/", (req, res) => {
     ProductModel.find()
       .then(data => res.send(data))
@@ -29,30 +27,29 @@ router.get("/", (req, res) => {
       });
   });
   
-  // Create a new product
+ 
   router.post("/createProduct", (req, res) => {
-    const newProduct = new ProductModel(req.body); // Create a new instance of ProductModel with the data from the request body
+    const newProduct = new ProductModel(req.body);
   
-    newProduct.save() // Save the new product to the database
-      .then(() => res.status(201).send("Product created successfully")) // If successful, send a success message
+    newProduct.save() 
+      .then(() => res.status(201).send("Product created successfully")) 
       .catch(err => {
-        console.error("Error creating product:", err); // Log the error for debugging
-        res.status(400).send("Error creating product"); // Send error response
+        console.error("Error creating product:", err); 
+        res.status(400).send("Error creating product"); 
       });
   });
-  
-  // Get product by name
+
   router.get("/getProductByName", (req, res) => {
-    const { name } = req.query; // Get the name from the query parameter
-    // Check if the name is provided
+    const { name } = req.query; 
+    
     if (!name) {
       return res.status(400).send("Missing name query parameter");
     }
   
-    ProductModel.find({ title: { $regex: name, $options: 'i' } }) // Use regex for case-insensitive search
+    ProductModel.find({ title: { $regex: name, $options: 'i' } }) 
       .then(products => res.send(products))
       .catch(err => {
-        console.error("Error retrieving products:", err); // Log the error for debugging
+        console.error("Error retrieving products:", err); 
         res.status(500).send("Error retrieving products");
       });
   });
@@ -61,7 +58,6 @@ router.get("/", (req, res) => {
     var prodId = +req.params.id;
     ProductModel.deleteOne({ id: prodId })
         .then((result) => {
-            // Send a JSON response
             res.json({ message: "Deleted successfully" });
         })
         .catch((err) => {
@@ -69,20 +65,19 @@ router.get("/", (req, res) => {
         });
   });
   
-  // Update a product
   router.put("/updateProduct/:id", (req, res) => {
-    const prodId = +req.params.id; // Get the product ID from the request parameters
-    ProductModel.findOneAndUpdate({ id: prodId }, req.body, { new: true }) // Find the product and update it
+    const prodId = +req.params.id; 
+    ProductModel.findOneAndUpdate({ id: prodId }, req.body, { new: true }) 
       .then(updatedProduct => {
         if (updatedProduct) {
-          res.send(updatedProduct); // Send the updated product as a response
+          res.send(updatedProduct); 
         } else {
-          res.status(404).send("Product not found"); // Handle case where product is not found
+          res.status(404).send("Product not found"); 
         }
       })
       .catch(err => {
-        console.error("Error updating product:", err); // Log the error for debugging
-        res.status(500).send("Error updating product"); // Send error response
+        console.error("Error updating product:", err); 
+        res.status(500).send("Error updating product"); 
       });
   });
   
